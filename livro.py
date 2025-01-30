@@ -28,24 +28,9 @@ class Livro:
 
     def get_status(self):
         return self._status
-    
-    def set_id(self, id):
-        self._id = id
 
-    def set_titulo(self, titulo):
-        self._titulo = titulo
-
-    def set_editora(self, editora):
-        self._editora = editora
-
-    def set_autores(self, autores):
-        self._autores = autores
-
-    def set_edicao(self, edicao):
-        self._edicao = edicao
-
-    def set_anoPublicacao(self, anoPublicacao):
-        self._anoPublicacao = anoPublicacao
-
-    def set_status(self, status):
-        self._status = status
+    def change_status(self):
+        if self._status ==  "d":
+            self._status = "n"
+        else:
+            self._status = "d"
