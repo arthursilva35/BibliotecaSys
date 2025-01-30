@@ -1,12 +1,12 @@
 class Livro:
     def __init__(self, id, titulo, editora, autores, edicao, anoPublicacao):
-        self.id = id
-        self.titulo = titulo
-        self.editora = editora
-        self.autores = autores
-        self.edicao = edicao
-        self.anoPublicacao = anoPublicacao
-        self.status = "d"
+        self._id = id
+        self._titulo = titulo
+        self._editora = editora
+        self._autores = autores
+        self._edicao = edicao
+        self._anoPublicacao = anoPublicacao
+        self._status = "d"
 
     def get_id(self):
         return self._id
