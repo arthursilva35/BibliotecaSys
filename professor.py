@@ -1,7 +1,7 @@
 from regra_emprestimo_folder.regra_professor import RegraProfessor
-from usuario import Usuario
+from IUsuario import IUsuario
 
-class Professor(Usuario):
+class Professor(IUsuario):
     def __init__(self, id, nome):
         super().__init__(id, nome, RegraProfessor())
 

@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from regra_emprestimo_folder.regra_pos_graduacao import RegraPosGraduacao
-from usuario import Usuario
+from IUsuario import IUsuario
 
-class AlunoPosGraduacao(Usuario):
+class AlunoPosGraduacao(IUsuario):
     TEMPO_EMPRESTIMO = 5 
     LIMITE_EMPRESTIMOS = 3
 

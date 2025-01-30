@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Observador(ABC):
+class IObservador(ABC):
     def __init__(self, id_usuario):
         self.id_usuario = id_usuario
         self.notificacoes = 0  

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Usuario(ABC):
+class IUsuario(ABC):
     def __init__(self, id, nome, regra_emprestimo):
         self._id = id
         self._nome = nome
