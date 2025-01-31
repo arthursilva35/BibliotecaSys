@@ -1,4 +1,3 @@
-from regra_emprestimo_folder.regra_professor import RegraProfessor
 from IUsuario import IUsuario
 
 class Professor(IUsuario):

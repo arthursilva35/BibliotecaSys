@@ -1,14 +1,14 @@
 import datetime
 from  IAcaoLivro import IAcaoLivro
 
-class Emprestimo(IAcaoLivro):
+class Reserva(IAcaoLivro):
     def __init__(self, id, id_usuario_responsavel, id_livro):
         self._id = id
         self._id_usuario_responsavel = id_usuario_responsavel
         self._id_livro = id_livro
         self._data = datetime.datetime.now()
         self._status = "ativo"
-
+    
     def get_id(self):
         return self._id
         
@@ -29,9 +29,9 @@ class Emprestimo(IAcaoLivro):
         return self._status
     
     def mudar_status(self):
-        if self._status == "ativo":
-            self._status = "inativo"
+        if self._status == "ativa":
+            self._status = "inativa"
         else:
-            self._status = "ativo"
+            self._status = "ativa"
         
         return None
