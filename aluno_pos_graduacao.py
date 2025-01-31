@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-from regra_emprestimo_folder.regra_pos_graduacao import RegraPosGraduacao
 from IUsuario import IUsuario
 
 class AlunoPosGraduacao(IUsuario):
