@@ -34,3 +34,5 @@ class Livro:
             self._status = "n"
         else:
             self._status = "d"
+
+        return None
