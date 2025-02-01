@@ -8,7 +8,7 @@ class Console:
     
     def iniciar(self):
             while True:
-                entrada = input("Digite um comando válido ou 'sai' para sair").split()
+                entrada = input("Digite um comando válido ou 'sai' para sair\n").split()
                 
                 if entrada[0] == "sai":
                     print("Encerrando o sistema...")
