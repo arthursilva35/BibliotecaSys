@@ -30,3 +30,7 @@ class IUsuario(ABC):
     @abstractmethod
     def mudar_situacao_devedor(self):
         pass
+
+    @abstractmethod
+    def adiciona_reserva_na_lista(self):
+        pass

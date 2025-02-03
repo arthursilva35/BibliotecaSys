@@ -31,9 +31,7 @@ class Professor(IUsuario):
         
         return None
 
-'''    def emprestar_livro(self, livro):
-        if self._esta_devendo:
-            return "Usuário está em débito."
-        data_devolucao = "Indeterminado"
-        self._emprestimos.append((livro, data_devolucao))
-        return f"Livro {livro} emprestado sem limite de devolução."'''
+    def adiciona_reserva_na_lista(self, reserva):
+        self._reservas.append(reserva)
+
+        return None

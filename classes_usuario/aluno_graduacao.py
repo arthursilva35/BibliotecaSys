@@ -35,12 +35,7 @@ class AlunoGraduacao(IUsuario):
         
         return None
 
+    def adiciona_reserva_na_lista(self, reserva):
+        self._reservas.append(reserva)
 
-'''    def emprestar_livro(self, livro):
-        if len(self._emprestimos) >= self.LIMITE_EMPRESTIMOS:
-            return "Limite de empréstimos atingido."
-        if self._esta_devendo:
-            return "Usuário está em débito."
-        data_devolucao = datetime.now() + timedelta(days=self.TEMPO_EMPRESTIMO)
-        self._emprestimos.append((livro, data_devolucao))
-        return f"Livro {livro} emprestado até {data_devolucao.strftime('%d/%m/%Y')}"'''
+        return None
