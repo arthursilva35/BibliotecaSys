@@ -1,4 +1,4 @@
-from command import Command
+from classes_command.command import Command
 
 
 class EmprestimoCommand(Command):

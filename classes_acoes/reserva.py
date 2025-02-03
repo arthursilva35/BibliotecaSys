@@ -1,5 +1,5 @@
 import datetime
-from  IAcaoLivro import IAcaoLivro
+from  classes_acoes.IAcaoLivro import IAcaoLivro
 
 class Reserva(IAcaoLivro):
     def __init__(self, id, id_usuario_responsavel, id_livro):

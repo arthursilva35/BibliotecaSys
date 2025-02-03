@@ -1,10 +1,6 @@
-from IUsuario import IUsuario
+from classes_usuario.IUsuario import IUsuario
 
-class AlunoGraduacao(IUsuario):
-    #TEMPO_EMPRESTIMO = 4 
-    #LIMITE_EMPRESTIMOS = 2
-
-    
+class Professor(IUsuario):
     def __init__(self, id, nome):
         self._id = id
         self._nome = nome
@@ -35,12 +31,9 @@ class AlunoGraduacao(IUsuario):
         
         return None
 
-
 '''    def emprestar_livro(self, livro):
-        if len(self._emprestimos) >= self.LIMITE_EMPRESTIMOS:
-            return "Limite de empréstimos atingido."
         if self._esta_devendo:
             return "Usuário está em débito."
-        data_devolucao = datetime.now() + timedelta(days=self.TEMPO_EMPRESTIMO)
+        data_devolucao = "Indeterminado"
         self._emprestimos.append((livro, data_devolucao))
-        return f"Livro {livro} emprestado até {data_devolucao.strftime('%d/%m/%Y')}"'''
+        return f"Livro {livro} emprestado sem limite de devolução."'''

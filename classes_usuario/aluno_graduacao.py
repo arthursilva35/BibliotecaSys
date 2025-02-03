@@ -1,9 +1,10 @@
-from IUsuario import IUsuario
+from classes_usuario.IUsuario import IUsuario
 
-class AlunoPosGraduacao(IUsuario):
-    #TEMPO_EMPRESTIMO = 5 
-    #LIMITE_EMPRESTIMOS = 3
+class AlunoGraduacao(IUsuario):
+    #TEMPO_EMPRESTIMO = 4 
+    #LIMITE_EMPRESTIMOS = 2
 
+    
     def __init__(self, id, nome):
         self._id = id
         self._nome = nome
@@ -33,6 +34,7 @@ class AlunoPosGraduacao(IUsuario):
             self._esta_devendo = True
         
         return None
+
 
 '''    def emprestar_livro(self, livro):
         if len(self._emprestimos) >= self.LIMITE_EMPRESTIMOS:

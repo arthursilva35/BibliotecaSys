@@ -1,4 +1,4 @@
-from IObservador import IObservador
+from classes_usuario.IObservador import IObservador
 
 class ProfessorObservador(IObservador):
     def __init__(self, id_usuario):

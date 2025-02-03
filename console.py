@@ -1,4 +1,4 @@
-from emprestimo_command import EmprestimoCommand
+from classes_command.emprestimo_command import EmprestimoCommand
 
 class Console:
     def __init__(self):
