@@ -1,11 +1,12 @@
 class Livro:
-    def __init__(self, id, titulo, editora, autores, edicao, anoPublicacao):
+    def __init__(self, id, titulo, editora, autores, edicao, anoPublicacao, qtdExemplares):
         self._id = id
         self._titulo = titulo
         self._editora = editora
         self._autores = autores
         self._edicao = edicao
         self._anoPublicacao = anoPublicacao
+        self.qtdExemplares = qtdExemplares
         self._status = "d"
 
     def get_id(self):
@@ -25,6 +26,14 @@ class Livro:
 
     def get_anoPublicacao(self):
         return self._anoPublicacao
+    
+    def get_quatidade_exemplares(self):
+        return self.get_quatidade_exemplares
+
+    def set_quatidade_exemplares(self, qtd):
+        self.qtdExemplares = qtd
+
+        return None
 
     def get_status(self):
         return self._status
