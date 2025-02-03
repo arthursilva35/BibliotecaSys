@@ -1,9 +1,11 @@
 from classes_command.emprestimo_command import EmprestimoCommand
+from classes_command.reserva_command import ReservaCommand
 
 class Console:
     def __init__(self):
         self.comandos = {
-            "emp": EmprestimoCommand()
+            "emp": EmprestimoCommand(),
+            "res": ReservaCommand()
         }
     
     def iniciar(self):
@@ -27,5 +29,5 @@ class Console:
 if __name__ == "__main__":
      
     console = Console()
-
-    console.iniciar() 
+    
+    console.iniciar()
