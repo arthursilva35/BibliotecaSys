@@ -6,7 +6,7 @@ class Livro:
         self._autores = autores
         self._edicao = edicao
         self._anoPublicacao = anoPublicacao
-        self.qtdExemplares = qtdExemplares
+        self._qtdExemplares = qtdExemplares
         self._status = "d"
 
     def get_id(self):
@@ -28,10 +28,10 @@ class Livro:
         return self._anoPublicacao
     
     def get_quatidade_exemplares(self):
-        return self.get_quatidade_exemplares
+        return self._qtdExemplares
 
     def set_quatidade_exemplares(self, qtd):
-        self.qtdExemplares = qtd
+        self._qtdExemplares = qtd
 
         return None
 
