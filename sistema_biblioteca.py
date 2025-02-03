@@ -23,11 +23,17 @@ class SistemaBiblioteca:
             Livro(400, "Design Patterns: Elements of Reusable Object-Oriented Software", "Addison Wesley Professional", "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides", 1, 1994), 
             Livro(401, "UML Distilled: A Brief Guide to the Standard Object Modeling Language", "Addison Wesley Professional", "Martin Fowler", 3, 2003)]
 
-    def get_usuario_por_id(id):
-        pass
+    def get_usuario_por_id(self, id):
+        for usuario in self.listaUsuarios:
+            if usuario.get_id() == id: return usuario
+        
+        return None # não encontrou o usuário na lista
     
-    def get_livro_por_id(id):
-        pass
+    def get_livro_por_id(self, id):
+        for livro in self.listaLivros:
+            if livro.get_id() == id: return livro
+        
+        return None # não encontrou o livro na lista
     
 
 class FabricaSistemaBiblioteca:
