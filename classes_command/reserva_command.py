@@ -10,15 +10,19 @@ class ReservaCommand(Command):
         sys = FabricaSistemaBiblioteca.get_sistema()
         
         
+        id_usuario = int(id_usuario)
+        id_livro = int(id_livro)
+        
         usuario = sys.get_usuario_por_id(id_usuario)
-        livro = sys.get_livro_por_id(id_usuario)
+        livro = sys.get_livro_por_id(id_livro)
 
         if usuario == None:
-            return "Não existe usuário com esse Id."
+            print (f"Não existe usuário com o Id: {id_usuario}.")
+            return None
 
         if livro == None:
-            return "Não existe livro com esse Id."
-        
+            print(f"Não existe livro com o Id: {id_livro}.")
+            return None
 
         exemp = livro.get_quatidade_exemplares() 
         
@@ -34,8 +38,11 @@ class ReservaCommand(Command):
             usuario.adiciona_reserva_na_lista(novaReserva)
 
             livro.set_quatidade_exemplares(exemp - 1)
+
+            print(f"Usuário {usuario.get_nome()} reservou o livro {livro.get_titulo()}!")
         
         else:
+            
             print(f"Não há mais exemplares disponíveis do livro{livro.get_titulo()}.")
 
         return None

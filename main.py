@@ -1,4 +1,4 @@
-from sistema_biblioteca import SistemaBiblioteca, FabricaSistemaBiblioteca
+from sistema_biblioteca import  FabricaSistemaBiblioteca
 
 from console import Console
 
@@ -14,4 +14,3 @@ if __name__ == "__main__":
     console = Console()
 
     console.iniciar()
-     
