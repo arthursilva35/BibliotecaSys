@@ -1,6 +1,8 @@
 from classes_usuario.IUsuario import IUsuario
+from classes_usuario.IRegraEmprestimo import IRegraEmprestimo
+from regra_emprestimo_folder.regra_graduacao import RegraGraduacao
 
-class AlunoGraduacao(IUsuario):
+class AlunoGraduacao(IUsuario, IRegraEmprestimo):
     #TEMPO_EMPRESTIMO = 4 
     #LIMITE_EMPRESTIMOS = 2
 
@@ -39,3 +41,7 @@ class AlunoGraduacao(IUsuario):
         self._reservas.append(reserva)
 
         return None
+    
+    # TO DO: implementar regra especifica pra cada usuário
+    def pode_emprestar(self, livro):
+        return RegraGraduacao().pode_emprestar(self, livro)
