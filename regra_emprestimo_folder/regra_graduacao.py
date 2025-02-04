@@ -20,11 +20,13 @@ class RegraGraduacao(RegraEmprestimo):
             print("Usuário com empréstimos em atraso. Empréstimo não realizado.")
             return False
         
-        if len(usuario.get_emprestimos_ativos()) >= 2:
+        # if len(usuario.get_emprestimos_ativos()) >= 2:
+        if gerenciador_emprestimo.qtde_livros_emprestados(usuario) >= 2:
             print("Usuário já possui 2 livros emprestados atualmente. Empréstimo não realizado.")
             return False
         
-        if usuario.ja_tem_livro(livro):
+        # if usuario.ja_tem_livro(livro):
+        if gerenciador_emprestimo.usuario_possui_livro(usuario, livro):
             print("Usuário já possui exemplar do livro. Empréstimo não realizado.")
             return False
         

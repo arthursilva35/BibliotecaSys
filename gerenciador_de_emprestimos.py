@@ -13,13 +13,13 @@ class GerenciadorEmprestimos:
         """Tenta emprestar um livro para o usuário"""
         
         if usuario in GerenciadorEmprestimos._usuarios_devedores:
-            return "Usuário está em débito."
+            return f"Usuário {usuario} está em débito e não pode pegar livros emprestados."
 
         if GerenciadorEmprestimos.usuario_possui_livro(usuario, livro):
-            return "Usuário já possui este livro emprestado."
+            return f"Usuário {usuario} já possui o livro '{livro}' emprestado."
 
         if len(GerenciadorEmprestimos._emprestimos_ativos.get(usuario, [])) >= GerenciadorEmprestimos.LIMITE_EMPRESTIMOS:
-            return "Limite de empréstimos atingido."
+            return f"Usuário {usuario} atingiu o limite de {GerenciadorEmprestimos.LIMITE_EMPRESTIMOS} empréstimos."
 
         data_devolucao = datetime.now() + timedelta(days=GerenciadorEmprestimos.TEMPO_EMPRESTIMO)
         
@@ -33,14 +33,21 @@ class GerenciadorEmprestimos:
     def devolver_livro(usuario, livro):
         """Tenta devolver um livro emprestado"""
         if usuario not in GerenciadorEmprestimos._emprestimos_ativos:
-            return "Usuário não possui empréstimos ativos."
+            return f"Usuário {usuario} não possui empréstimos ativos."
 
         for emprestimo in GerenciadorEmprestimos._emprestimos_ativos[usuario]:
             if emprestimo[0] == livro:
+                data_devolucao = emprestimo[1]
                 GerenciadorEmprestimos._emprestimos_ativos[usuario].remove(emprestimo)
+                
+                # Verificar se a devolução está atrasada
+                if datetime.now() > data_devolucao:
+                    GerenciadorEmprestimos.marcar_usuario_como_devedor(usuario)
+                    return f"Livro '{livro}' devolvido com atraso. Usuário {usuario} marcado como devedor."
+                
                 return f"Livro '{livro}' devolvido com sucesso."
 
-        return "Livro não encontrado nos empréstimos ativos do usuário."
+        return f"Livro '{livro}' não encontrado nos empréstimos ativos do usuário {usuario}."
 
     @staticmethod
     def listar_emprestimos_ativos(usuario):
@@ -60,17 +67,23 @@ class GerenciadorEmprestimos:
     @staticmethod
     def usuario_possui_livro(usuario, livro):
         """Verifica se o usuário já pegou este livro emprestado"""
-        return any(emprestimo[0] == livro for emprestimo in GerenciadorEmprestimos._emprestimos_ativos.get(usuario, []))
+        return livro in [emprestimo[0] for emprestimo in GerenciadorEmprestimos._emprestimos_ativos.get(usuario, [])]
 
     @staticmethod
     def marcar_usuario_como_devedor(usuario):
         """Marca um usuário como devedor"""
-        GerenciadorEmprestimos._usuarios_devedores.add(usuario)
+        if usuario not in GerenciadorEmprestimos._usuarios_devedores:
+            GerenciadorEmprestimos._usuarios_devedores.add(usuario)
+            return f"Usuário {usuario} marcado como devedor."
+        return f"Usuário {usuario} já está na lista de devedores."
 
     @staticmethod
     def remover_usuario_devedor(usuario):
         """Remove um usuário da lista de devedores"""
-        GerenciadorEmprestimos._usuarios_devedores.discard(usuario)
+        if usuario in GerenciadorEmprestimos._usuarios_devedores:
+            GerenciadorEmprestimos._usuarios_devedores.discard(usuario)
+            return f"Usuário {usuario} removido da lista de devedores."
+        return f"Usuário {usuario} não está na lista de devedores."
 
     @staticmethod
     def usuario_esta_devendo(usuario):

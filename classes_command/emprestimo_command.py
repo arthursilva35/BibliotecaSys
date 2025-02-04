@@ -39,8 +39,8 @@ class EmprestimoCommand(Command):
             
             # Adicionando ao GerenciadorEmprestimos
             data_devolucao = datetime.now() + timedelta(days=GerenciadorEmprestimos.TEMPO_EMPRESTIMO)
-            GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario.get_nome(), []).append((livro.get_titulo(), data_devolucao))
-            GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario.get_nome(), []).append((livro.get_titulo(), data_devolucao))
+            GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
+            GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
             
             # Adicionando ao histórico de empréstimos do usuário
             usuario.adicionar_emprestimo_historico(novo_emprestimo)
