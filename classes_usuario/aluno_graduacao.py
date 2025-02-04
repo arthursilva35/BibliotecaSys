@@ -1,18 +1,9 @@
 from classes_usuario.IUsuario import IUsuario
-from classes_usuario.IRegraEmprestimo import IRegraEmprestimo
 from regra_emprestimo_folder.regra_graduacao import RegraGraduacao
 
-class AlunoGraduacao(IUsuario, IRegraEmprestimo):
-    #TEMPO_EMPRESTIMO = 4 
-    #LIMITE_EMPRESTIMOS = 2
-
-    
+class AlunoGraduacao(IUsuario):
     def __init__(self, id, nome):
-        self._id = id
-        self._nome = nome
-        self._esta_devendo = False
-        self._emprestimos = []
-        self._reservas = []
+        super().__init__(id, nome)
     
     def get_id(self):
         return self._id
@@ -30,18 +21,35 @@ class AlunoGraduacao(IUsuario, IRegraEmprestimo):
         return self._reservas
     
     def mudar_situacao_devedor(self):
-        if self._esta_devendo == True:
-            self._esta_devendo = False
-        else:
-            self._esta_devendo = True
-        
-        return None
+        self._esta_devendo = not self._esta_devendo
 
     def adiciona_reserva_na_lista(self, reserva):
         self._reservas.append(reserva)
 
         return None
     
-    # TO DO: implementar regra especifica pra cada usuário
+    def remover_reserva(self, id_livro):
+        self._reservas = [r for r in self._reservas if r.get_livro().get_id() != id_livro]
+
+        return None
+    
+    def ja_tem_livro(self, livro):
+        return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._emprestimos_ativos])
+    
+    def adicionar_emprestimo(self, emprestimo):
+        self._emprestimos_ativos.append(emprestimo)
+
+    def adicionar_emprestimo_historico(self, emprestimo):
+        self._historico_emprestimos.append(emprestimo)
+
+    def get_emprestimos_ativos(self):
+        return self._emprestimos_ativos
+
+    def get_historico_emprestimos(self):
+        return self._historico_emprestimos
+
     def pode_emprestar(self, livro):
         return RegraGraduacao().pode_emprestar(self, livro)
+    
+    def get_tipo_usuario(self):
+        return "Aluno de Graduação"
