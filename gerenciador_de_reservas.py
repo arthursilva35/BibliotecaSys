@@ -1,26 +1,43 @@
-class GerenciadorDeReservas:
-    def __init__(self):
-        self.reservas = {}  # Dicionário para armazenar {livro: número de reservas}
-        self.observadores = {}  # Dicionário {livro: lista de observadores}
+class GerenciadorReservas:
+    """Gerenciador universal de reservas - não instanciável."""
+    
+    _reservas = {}  # Dicionário {codigo_item: [usuarios]}
 
-    def adicionar_observador(self, livro, observador):
-        if livro not in self.observadores:
-            self.observadores[livro] = []
-        self.observadores[livro].append(observador)
+    @staticmethod
+    def adicionar_reserva(usuario: str, item) -> bool:
+        """Adiciona uma reserva para um usuário se possível."""
+        codigo = item.get_id()
+        
+        if codigo not in GerenciadorReservas._reservas:
+            GerenciadorReservas._reservas[codigo] = []
+        
+        if usuario in GerenciadorReservas._reservas[codigo]:
+            print(f"Usuário {usuario} já reservou o item {codigo}.")
+            return False
+        
+        GerenciadorReservas._reservas[codigo].append(usuario)
+        print(f"Reserva do item {codigo} feita com sucesso para {usuario}.")
+        return True
 
-    def remover_observador(self, livro, observador):
-        if livro in self.observadores:
-            self.observadores[livro].remove(observador)
+    @staticmethod
+    def remover_reserva(usuario: str, item) -> bool:
+        """Remove a reserva de um usuário para um item."""
+        codigo = item.get_id()
+        
+        if codigo in GerenciadorReservas._reservas and usuario in GerenciadorReservas._reservas[codigo]:
+            GerenciadorReservas._reservas[codigo].remove(usuario)
+            print(f"Reserva de {usuario} no item {codigo} removida.")
+            return True
+        
+        print(f"Nenhuma reserva encontrada para {usuario} no item {codigo}.")
+        return False
 
-    def reservar(self, livro):
-        if livro not in self.reservas:
-            self.reservas[livro] = 0
-        self.reservas[livro] += 1
+    @staticmethod
+    def listar_reservas(item) -> list:
+        """Lista todos os usuários que reservaram determinado item."""
+        return GerenciadorReservas._reservas.get(item.get_id(), [])
 
-        if self.reservas[livro] > 2:  # Notifica observadores se ultrapassar 2 reservas
-            self.notificar_observadores(livro)
-
-    def notificar_observadores(self, livro):
-        if livro in self.observadores:
-            for observador in self.observadores[livro]:
-                observador.notificar(livro)
+    @staticmethod
+    def tem_reserva(usuario: str, item) -> bool:
+        """Verifica se um usuário tem reserva para um item."""
+        return usuario in GerenciadorReservas._reservas.get(item.get_id(), [])

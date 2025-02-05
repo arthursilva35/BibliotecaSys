@@ -1,12 +1,9 @@
 from classes_usuario.IUsuario import IUsuario
+from regra_emprestimo_folder.regra_professor import RegraProfessor
 
 class Professor(IUsuario):
     def __init__(self, id, nome):
-        self._id = id
-        self._nome = nome
-        self._esta_devendo = False
-        self._emprestimos = []
-        self._reservas = []
+        super().__init__(id, nome)
     
     def get_id(self):
         return self._id
@@ -23,15 +20,42 @@ class Professor(IUsuario):
     def get_reservas(self):
         return self._reservas
     
+    def get_tempo_emprestimo(self):
+        return RegraProfessor.TEMPO_EMPRESTIMO
+    
+    def get_limite_emprestimos(self):
+        return RegraProfessor.LIMITE_EMPRESTIMOS
+    
     def mudar_situacao_devedor(self):
-        if self._esta_devendo == True:
-            self._esta_devendo = False
-        else:
-            self._esta_devendo = True
-        
-        return None
+        self._esta_devendo = not self._esta_devendo
 
     def adiciona_reserva_na_lista(self, reserva):
         self._reservas.append(reserva)
 
         return None
+    
+    def adicionar_emprestimo(self, emprestimo):
+        self._emprestimos_ativos.append(emprestimo)
+
+    def adicionar_emprestimo_historico(self, emprestimo):
+        self._historico_emprestimos.append(emprestimo)
+
+    def get_emprestimos_ativos(self):
+        return self._emprestimos_ativos
+
+    def get_historico_emprestimos(self):
+        return self._historico_emprestimos
+    
+    def remover_reserva(self, id_livro):
+        self._reservas = [r for r in self._reservas if r.get_livro().get_id() != id_livro]
+        
+        return None
+    
+    def ja_tem_livro(self, livro):
+        return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._emprestimos_ativos])
+    
+    def pode_emprestar(self, livro):
+        return RegraProfessor().pode_emprestar(self, livro)
+    
+    def get_tipo_usuario(self):
+        return "Professor"

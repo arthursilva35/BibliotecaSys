@@ -36,13 +36,13 @@ class SistemaBiblioteca:
 
     def get_usuario_por_id(self, id):
         for usuario in self.listaUsuarios:
-            if usuario.get_id() == id: return usuario
+            if int(usuario.get_id()) == int(id): return usuario
         
         return None # não encontrou o usuário na lista
     
     def get_livro_por_id(self, id):
         for livro in self.listaLivros:
-            if livro.get_id() == id: return livro
+            if int(livro.get_id()) == int(id): return livro
         
         return None # não encontrou o livro na lista
     
