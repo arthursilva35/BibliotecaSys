@@ -20,6 +20,12 @@ class Professor(IUsuario):
     def get_reservas(self):
         return self._reservas
     
+    def get_tempo_emprestimo(self):
+        return RegraProfessor.TEMPO_EMPRESTIMO
+    
+    def get_limite_emprestimos(self):
+        return RegraProfessor.LIMITE_EMPRESTIMOS
+    
     def mudar_situacao_devedor(self):
         self._esta_devendo = not self._esta_devendo
 

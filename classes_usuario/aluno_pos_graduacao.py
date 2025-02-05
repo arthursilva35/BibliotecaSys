@@ -20,6 +20,12 @@ class AlunoPosGraduacao(IUsuario):
     def get_reservas(self):
         return self._reservas
 
+    def get_tempo_emprestimo(self):
+        return RegraPosGraduacao.TEMPO_EMPRESTIMO
+    
+    def get_limite_emprestimos(self):
+        return RegraPosGraduacao.LIMITE_EMPRESTIMOS
+    
     def mudar_situacao_devedor(self):
         self._esta_devendo = not self._esta_devendo
 

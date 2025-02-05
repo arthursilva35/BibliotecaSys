@@ -17,6 +17,12 @@ class AlunoGraduacao(IUsuario):
     def get_emprestimos(self):
         return self._emprestimos
     
+    def get_tempo_emprestimo(self):
+        return RegraGraduacao.TEMPO_EMPRESTIMO
+    
+    def get_limite_emprestimos(self):
+        return RegraGraduacao.LIMITE_EMPRESTIMOS
+    
     def get_reservas(self):
         return self._reservas
     

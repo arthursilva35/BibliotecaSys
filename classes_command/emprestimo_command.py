@@ -23,8 +23,7 @@ class EmprestimoCommand(Command):
             return None
 
         if not usuario.pode_emprestar(livro):
-            print("Empréstimo não permitido.")
-            return
+            return None
         
         if livro.get_qtde_exemplares() > 0:
             EmprestimoCommand.id_counter += 1
@@ -38,9 +37,7 @@ class EmprestimoCommand(Command):
             livro.set_qtde_exemplares(livro.get_qtde_exemplares() - 1)
             
             # Adicionando ao GerenciadorEmprestimos
-            data_devolucao = datetime.now() + timedelta(days=GerenciadorEmprestimos.TEMPO_EMPRESTIMO)
-            GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
-            GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
+            GerenciadorEmprestimos.emprestar_livro(usuario, livro)
             
             # Adicionando ao histórico de empréstimos do usuário
             usuario.adicionar_emprestimo_historico(novo_emprestimo)

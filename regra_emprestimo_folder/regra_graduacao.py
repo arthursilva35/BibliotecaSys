@@ -36,7 +36,11 @@ class RegraGraduacao(RegraEmprestimo):
 
         return True
 
-    
-
     def calcular_prazo(self):
         return datetime.now() + timedelta(days=self.TEMPO_EMPRESTIMO)
+    
+    def get_tempo_emprestimo(self):
+        return self.TEMPO_EMPRESTIMO
+    
+    def get_limite_emprestimos(self):
+        return self.LIMITE_EMPRESTIMOS

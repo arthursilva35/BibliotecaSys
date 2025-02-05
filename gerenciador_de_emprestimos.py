@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
 
 class GerenciadorEmprestimos:
-    TEMPO_EMPRESTIMO = 4  # Dias de empréstimo
-    LIMITE_EMPRESTIMOS = 2
+
     
     _emprestimos_ativos = {}  # Dicionário {usuario: [(livro, data_devolucao)]}
     _historico_emprestimos = {}  # Dicionário {usuario: [(livro, data_devolucao)]}
@@ -12,22 +11,15 @@ class GerenciadorEmprestimos:
     def emprestar_livro(usuario, livro):
         """Tenta emprestar um livro para o usuário"""
         
-        if usuario in GerenciadorEmprestimos._usuarios_devedores:
-            return f"Usuário {usuario} está em débito e não pode pegar livros emprestados."
+        if usuario.pode_emprestar(livro):
 
-        if GerenciadorEmprestimos.usuario_possui_livro(usuario, livro):
-            return f"Usuário {usuario} já possui o livro '{livro}' emprestado."
+            data_devolucao = datetime.now() + timedelta(days=usuario.get_tempo_emprestimo())
+            
+            # Registrar empréstimo
+            GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
+            GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
 
-        if len(GerenciadorEmprestimos._emprestimos_ativos.get(usuario, [])) >= GerenciadorEmprestimos.LIMITE_EMPRESTIMOS:
-            return f"Usuário {usuario} atingiu o limite de {GerenciadorEmprestimos.LIMITE_EMPRESTIMOS} empréstimos."
-
-        data_devolucao = datetime.now() + timedelta(days=GerenciadorEmprestimos.TEMPO_EMPRESTIMO)
-        
-        # Registrar empréstimo
-        GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
-        GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
-
-        return f"Livro '{livro}' emprestado para {usuario} até {data_devolucao.strftime('%d/%m/%Y')}."
+            print(f"Livro '{livro.get_titulo()}' emprestado para {usuario.get_nome()} até {data_devolucao.strftime('%d/%m/%Y')}.")
 
     @staticmethod
     def devolver_livro(usuario, livro):
