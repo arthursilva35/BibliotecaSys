@@ -45,11 +45,19 @@ class IUsuario(ABC):
         pass
 
     @abstractmethod
-    def adiciona_reserva_na_lista(self):
+    def ja_tem_livro(self, livro):
         pass
 
     @abstractmethod
-    def ja_tem_livro(self, livro):
+    def ja_tem_reserva(self, livro):
+        pass
+
+    @abstractmethod
+    def adicionar_reserva(self, livro):
+        pass
+
+    @abstractmethod
+    def remover_reserva(self, livro_id):
         pass
 
     @abstractmethod

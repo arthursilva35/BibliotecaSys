@@ -42,11 +42,18 @@ class EmprestimoCommand(Command):
             # Adicionando ao histórico de empréstimos do usuário
             usuario.adicionar_emprestimo_historico(novo_emprestimo)
             
-            print(f"Usuário {usuario.get_nome()} pegou emprestado o livro {livro.get_titulo()}!")
 
         else:
             print(f"Não há mais exemplares disponíveis do livro {livro.get_titulo()}.")
         
-        if usuario in [reserva.get_usuario() for reserva in GerenciadorReservas.listar_reservas(livro)]:
+        # Verifica se o usuário já tem reserva para o livro específico
+        if livro.get_id() in [reserva[0] for reserva in GerenciadorReservas.listar_reservas(usuario)]:
+            print(f"Usuário {usuario.get_nome()} tinha uma reserva para o livro {livro.get_titulo()}.")
+            
+            # Remove a reserva do Gerenciador de Reservas
+            GerenciadorReservas.remover_reserva(usuario, livro)
+            
+            # Remove a reserva do próprio usuário
             usuario.remover_reserva(livro.get_id())
-            livro.remover_reserva(livro.get_id())
+            
+
