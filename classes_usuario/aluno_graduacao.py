@@ -29,13 +29,16 @@ class AlunoGraduacao(IUsuario):
     def mudar_situacao_devedor(self):
         self._esta_devendo = not self._esta_devendo
 
-    def adiciona_reserva_na_lista(self, reserva):
+    def adicionar_reserva(self, reserva):
         self._reservas.append(reserva)
 
         return None
     
+    def ja_tem_reserva(self, livro):
+        return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._reservas])
+    
     def remover_reserva(self, id_livro):
-        self._reservas = [r for r in self._reservas if r.get_livro().get_id() != id_livro]
+        self._reservas = [r for r in self._reservas if r.get_id() != id_livro]
 
         return None
     

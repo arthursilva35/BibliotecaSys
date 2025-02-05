@@ -1,11 +1,13 @@
 from classes_command.emprestimo_command import EmprestimoCommand
 from classes_command.reserva_command import ReservaCommand
+from classes_command.devolucao_command import DevolucaoCommand
 
 class Console:
     def __init__(self):
         self.comandos = {
             "emp": EmprestimoCommand(),
-            "res": ReservaCommand()
+            "res": ReservaCommand(),
+            "dev": DevolucaoCommand()
         }
     
     def iniciar(self):
