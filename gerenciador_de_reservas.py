@@ -51,7 +51,6 @@ class GerenciadorReservas:
     @staticmethod
     def listar_reservas(usuario) -> list:
         """Lista todas as reservas de um usuário."""
-        print(GerenciadorReservas._reservas.get((usuario.get_id()), []))
         return GerenciadorReservas._reservas.get((usuario.get_id()), [])
 
     @staticmethod

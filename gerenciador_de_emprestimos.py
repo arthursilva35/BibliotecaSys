@@ -42,7 +42,7 @@ class GerenciadorEmprestimos:
                 print(f"Livro '{livro.get_titulo()}' devolvido com sucesso.")
                 return None
 
-        print(f"Livro '{livro.get_titulo()}' não encontrado nos empréstimos ativos do usuário {usuario}.")
+        print(f"Livro '{livro.get_titulo()}' não encontrado nos empréstimos ativos do usuário {usuario.get_nome()}.")
         return None
 
     @staticmethod
