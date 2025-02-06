@@ -20,7 +20,6 @@ class RegraProfessor(RegraEmprestimo):
             print("Usuário com empréstimos em atraso. Empréstimo não realizado.")
             return False
         
-        # if usuario.ja_tem_livro(livro):
         if gerenciador_emprestimo.usuario_possui_livro(usuario, livro):
             print("Usuário já possui exemplar do livro. Empréstimo não realizado.")
             return False
