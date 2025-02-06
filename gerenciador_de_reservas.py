@@ -1,35 +1,23 @@
 from datetime import datetime
+from classes_acoes.reserva import Reserva
 
 class GerenciadorReservas:
-    """Gerenciador universal de reservas - não instanciável."""
-
-    _reservas = {}  # Dicionário no formato {id_usuario: [(id_livro, data_reserva)]}
-
+    id_counter = 0
+    
     @staticmethod
-    def adicionar_reserva(usuario, livro) -> bool:
-        """Adiciona uma reserva para um usuário se possível."""
-        id_usuario = usuario.get_id()
-        id_livro = livro.get_id()
-        
-        if id_usuario not in GerenciadorReservas._reservas:
-            GerenciadorReservas._reservas[id_usuario] = []
-        
-        # Verifica se o usuário já tem 3 reservas
-        if len(GerenciadorReservas._reservas[id_usuario]) >= 3:
-            print(f"Usuário {usuario.get_nome()} já atingiu o limite de 3 reservas.")
-            return False
-        
-        # Verifica se o livro já está reservado por esse usuário
-        if any(reserva[0] == id_livro for reserva in GerenciadorReservas._reservas[id_usuario]):
-            print(f"Usuário {usuario.get_nome()} já reservou o livro {livro.get_titulo()}.")
-            return False
-        
-        # Adiciona a reserva com a data atual
-        data_reserva = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        GerenciadorReservas._reservas[id_usuario].append((id_livro, data_reserva))
+    def adicionar_reserva(usuario, livro):
+        GerenciadorReservas.id_counter += 1
 
-        print(f"Reserva do livro '{livro.get_titulo()}' feita com sucesso para {usuario.get_nome()} em {data_reserva}.")
-        return True
+        cur_id = GerenciadorReservas.id_counter
+
+        res = Reserva(cur_id, usuario.get_id(), livro.get_id())
+
+
+        usuario.adicionar_reserva(res)
+
+        print(f"Reserva confirmada! Usuário {usuario.get_nome()} reservou o livro '{livro.get_titulo()}'.")
+
+        return None
 
     @staticmethod
     def remover_reserva(usuario, livro) -> bool:

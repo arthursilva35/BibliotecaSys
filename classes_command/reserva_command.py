@@ -24,38 +24,18 @@ class ReservaCommand(Command):
             print(f"Não existe livro com o Id: {id_livro}.")
             return None
 
-        # Verifica se o usuário já atingiu o limite de reservas
         if len(usuario.get_reservas()) >= 3:
             print(f"Usuário {usuario.get_nome()} já possui 3 reservas simultâneas. Reserva não permitida.")
-            return None
-        
-        # Verifica se o livro já foi reservado pelo usuário
-        if usuario.ja_tem_reserva(livro):
-            print(f"Usuário {usuario.get_nome()} já reservou o livro '{livro.get_titulo()}'.")
             return None
         
         if usuario.ja_tem_livro(livro):
             print(f"Usuário {usuario.get_nome()} já tem o livro '{livro.get_titulo()}' emprestado.")
             return None
         
-        # Verifica se há exemplares disponíveis
         if livro.get_qtde_exemplares() == 0:
             print(f"Não há mais exemplares disponíveis do livro '{livro.get_titulo()}'.")
             return None
         
-        if livro.get_qtde_reservas() == livro.get_qtde_exemplares():
-            print(f"Todos os exemplares do livro '{livro.get_titulo()}' estão reservados.")
-            return None
-
-        # Adiciona a reserva
-        ReservaCommand.id_counter += 1
-        nova_reserva = Reserva(ReservaCommand.id_counter, id_usuario, id_livro)
-        
-        usuario.adicionar_reserva(nova_reserva)
         GerenciadorReservas.adicionar_reserva(usuario, livro)
-
-        # Reduz a quantidade de exemplares disponíveis
-        livro.set_qtde_reservas(livro.get_qtde_reservas() + 1)
-
-        print(f"Reserva confirmada! Usuário {usuario.get_nome()} reservou o livro '{livro.get_titulo()}'.")
+        
         return None
