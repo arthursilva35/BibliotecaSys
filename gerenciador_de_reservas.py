@@ -8,7 +8,6 @@ class GerenciadorReservas:
     @staticmethod
     def adicionar_reserva(usuario, livro) -> bool:
         """Adiciona uma reserva para um usuário se possível."""
-        print(GerenciadorReservas._reservas)
         id_usuario = usuario.get_id()
         id_livro = livro.get_id()
         

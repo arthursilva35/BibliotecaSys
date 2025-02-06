@@ -25,7 +25,26 @@ class EmprestimoCommand(Command):
         if not usuario.pode_emprestar(livro):
             return None
         
-        if livro.get_qtde_exemplares() > 0:
+        print(GerenciadorReservas._reservas)
+        if (usuario.get_tipo_usuario() == "Professor" and livro.get_qtde_exemplares() > 0) or livro.get_qtde_exemplares() - livro.get_qtde_reservas() > 0:
+            # Coleta todas as reservas para o livro específico
+            reservas = [
+                (usuario_id, reserva[1])  # (id_usuario, data_reserva)
+                for usuario_id, lista_reservas in GerenciadorReservas._reservas.items()
+                for reserva in lista_reservas
+                if reserva[0] == livro.get_id()  # Verifica se o ID do livro corresponde
+            ]
+
+            print(reservas)
+
+            # Se houver reservas e não houver exemplares disponíveis
+            if reservas and livro.get_qtde_exemplares() - livro.get_qtde_reservas() == 0:
+                reserva_mais_recente = max(reservas, key=lambda r: r[1])  # Pega a mais recente pela data
+                id_usuario_reserva, data_reserva = reserva_mais_recente
+                GerenciadorReservas._reservas[id_usuario_reserva].remove((livro.get_id(), data_reserva))
+                print(f"Reserva do usuário {id_usuario_reserva} removida.")
+                livro.set_qtde_reservas(livro.get_qtde_reservas() - 1)
+
             EmprestimoCommand.id_counter += 1
             cur_id = EmprestimoCommand.id_counter
             novo_emprestimo = Emprestimo(cur_id, id_usuario, id_livro)

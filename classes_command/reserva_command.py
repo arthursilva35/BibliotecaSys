@@ -34,9 +34,17 @@ class ReservaCommand(Command):
             print(f"Usuário {usuario.get_nome()} já reservou o livro '{livro.get_titulo()}'.")
             return None
         
+        if usuario.ja_tem_livro(livro):
+            print(f"Usuário {usuario.get_nome()} já tem o livro '{livro.get_titulo()}' emprestado.")
+            return None
+        
         # Verifica se há exemplares disponíveis
         if livro.get_qtde_exemplares() == 0:
             print(f"Não há mais exemplares disponíveis do livro '{livro.get_titulo()}'.")
+            return None
+        
+        if livro.get_qtde_reservas() == livro.get_qtde_exemplares():
+            print(f"Todos os exemplares do livro '{livro.get_titulo()}' estão reservados.")
             return None
 
         # Adiciona a reserva
@@ -47,7 +55,7 @@ class ReservaCommand(Command):
         GerenciadorReservas.adicionar_reserva(usuario, livro)
 
         # Reduz a quantidade de exemplares disponíveis
-        livro.set_qtde_exemplares(livro.get_qtde_exemplares() - 1)
+        livro.set_qtde_reservas(livro.get_qtde_reservas() + 1)
 
         print(f"Reserva confirmada! Usuário {usuario.get_nome()} reservou o livro '{livro.get_titulo()}'.")
         return None

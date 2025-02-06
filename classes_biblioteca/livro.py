@@ -1,7 +1,7 @@
 import random
 
 class Livro:
-    def __init__(self, id, titulo, editora, autores, edicao, anoPublicacao, qtdExemplares, qtdReservas = random.randint(0, 3)):
+    def __init__(self, id, titulo, editora, autores, edicao, anoPublicacao, qtdExemplares):
         self._id = id
         self._titulo = titulo
         self._editora = editora
@@ -9,7 +9,7 @@ class Livro:
         self._edicao = edicao
         self._anoPublicacao = anoPublicacao
         self._qtdExemplares = qtdExemplares
-        self._qtdReservas = qtdReservas
+        self._qtdReservas = 0
         self._status = "d"
         self._estaDisponivel = self.get_esta_disponivel()
 
@@ -36,6 +36,11 @@ class Livro:
     
     def get_qtde_reservas(self):
         return self._qtdReservas
+    
+    def set_qtde_reservas(self, qtd):
+        self._qtdReservas = qtd
+
+        return None
 
     def set_qtde_exemplares(self, qtd):
         self._qtdExemplares = qtd
