@@ -5,7 +5,7 @@ from gerenciador_de_reservas import GerenciadorReservas
 
 
 class ReservaCommand(Command):
-    id_counter = 0
+    id_counter = 1
 
     def executar(self, id_usuario, id_livro):
         sys = FabricaSistemaBiblioteca.get_sistema()

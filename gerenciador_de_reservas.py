@@ -41,7 +41,7 @@ class GerenciadorReservas:
         return False
 
     @staticmethod
-    def listar_reservas(usuario) -> list:
+    def listar_reservas_usuario(usuario) -> list:
         """Lista todas as reservas de um usuário."""
         return GerenciadorReservas._reservas.get((usuario.get_id()), [])
 
@@ -49,3 +49,8 @@ class GerenciadorReservas:
     def tem_reserva(usuario, livro) -> bool:
         """Verifica se um usuário tem reserva para um livro."""
         return any(reserva[0] == livro.get_id() for reserva in GerenciadorReservas._reservas.get(usuario.get_id(), []))
+
+    @staticmethod
+    def listar_reservas() -> dict:
+        """Lista todas as reservas de todos os usuários."""
+        return GerenciadorReservas._reservas

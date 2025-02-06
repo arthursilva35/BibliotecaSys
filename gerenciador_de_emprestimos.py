@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from gerenciador_de_reservas import GerenciadorReservas
 
 class GerenciadorEmprestimos:
 
@@ -10,16 +11,32 @@ class GerenciadorEmprestimos:
     @staticmethod
     def emprestar_livro(usuario, livro):
         """Tenta emprestar um livro para o usuário"""
+        reservas = [
+            (usuario_id, reserva[1])  # (id_usuario, data_reserva)
+            for usuario_id, lista_reservas in GerenciadorReservas.listar_reservas().items()
+            for reserva in lista_reservas
+            if reserva[0] == livro.get_id()  # Verifica se o ID do livro corresponde
+        ]
+
+
+        # Se houver reservas e não houver exemplares disponíveis
+        if reservas and livro.get_qtde_exemplares() - livro.get_qtde_reservas() == 0:
+            reserva_mais_recente = max(reservas, key=lambda r: r[1])  # Pega a mais recente pela data
+            id_usuario_reserva, data_reserva = reserva_mais_recente
+            # GerenciadorReservas.listar_reservas()[id_usuario_reserva].remove((livro.get_id(), data_reserva))
+            GerenciadorReservas._reservas[id_usuario_reserva].remove((livro.get_id(), data_reserva))
+            print(f"Reserva do usuário {id_usuario_reserva} removida.")
+            livro.set_qtde_reservas(livro.get_qtde_reservas() - 1)
+
+
+        data_devolucao = datetime.now() + timedelta(days=usuario.get_tempo_emprestimo())
         
-        if usuario.pode_emprestar(livro):
+        # Registrar empréstimo
+        GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
+        GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
+        livro.set_qtde_exemplares(livro.get_qtde_exemplares() - 1)
 
-            data_devolucao = datetime.now() + timedelta(days=usuario.get_tempo_emprestimo())
-            
-            # Registrar empréstimo
-            GerenciadorEmprestimos._emprestimos_ativos.setdefault(usuario, []).append((livro, data_devolucao))
-            GerenciadorEmprestimos._historico_emprestimos.setdefault(usuario, []).append((livro, data_devolucao))
-
-            print(f"Livro '{livro.get_titulo()}' emprestado para {usuario.get_nome()} até {data_devolucao.strftime('%d/%m/%Y')}.")
+        print(f"Livro '{livro.get_titulo()}' emprestado para {usuario.get_nome()} até {data_devolucao.strftime('%d/%m/%Y')}.")
 
     @staticmethod
     def devolver_livro(usuario, livro):
