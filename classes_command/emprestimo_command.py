@@ -30,7 +30,16 @@ class EmprestimoCommand(Command):
         cur_id = EmprestimoCommand.id_counter
         novo_emprestimo = Emprestimo(cur_id, id_usuario, id_livro)
         
-        
+                # Verifica se o usuário já tem reserva para o livro específico
+        if livro.get_id() in [reserva[0] for reserva in GerenciadorReservas.listar_reservas_usuario(usuario)]:
+            print(f"Usuário {usuario.get_nome()} tinha uma reserva para o livro {livro.get_titulo()}.")
+            
+            # Remove a reserva do Gerenciador de Reservas
+            GerenciadorReservas.remover_reserva(usuario.get_id(), livro.get_id())
+            
+            # Remove a reserva do próprio usuário
+            usuario.remover_reserva(livro.get_id())
+
         
         # Adicionando ao GerenciadorEmprestimos
         GerenciadorEmprestimos.emprestar_livro(usuario, livro)
@@ -41,14 +50,3 @@ class EmprestimoCommand(Command):
         # Adicionando ao histórico de empréstimos do usuário
         usuario.adicionar_emprestimo_historico(novo_emprestimo)
 
-        
-        # Verifica se o usuário já tem reserva para o livro específico
-        if livro.get_id() in [reserva[0] for reserva in GerenciadorReservas.listar_reservas_usuario(usuario)]:
-            print(f"Usuário {usuario.get_nome()} tinha uma reserva para o livro {livro.get_titulo()}.")
-            
-            # Remove a reserva do Gerenciador de Reservas
-            GerenciadorReservas.remover_reserva(usuario, livro)
-            
-            # Remove a reserva do próprio usuário
-            usuario.remover_reserva(livro.get_id())
-            

@@ -7,11 +7,6 @@ class GerenciadorReservas:
 
     @staticmethod
     def adicionar_reserva(usuario, livro) -> bool:
-                # Verifica se o usuário já atingiu o limite de reservas
-        if len(usuario.get_reservas()) >= 3:
-            print(f"Usuário {usuario.get_nome()} já possui 3 reservas simultâneas. Reserva não permitida.")
-            return None
-        
         # Verifica se o livro já foi reservado pelo usuário
         if usuario.ja_tem_reserva(livro):
             print(f"Usuário {usuario.get_nome()} já reservou o livro '{livro.get_titulo()}'.")
@@ -36,6 +31,7 @@ class GerenciadorReservas:
         if id_usuario not in GerenciadorReservas._reservas:
             GerenciadorReservas._reservas[id_usuario] = []
         
+        print(GerenciadorReservas._reservas[id_usuario])
         # Verifica se o usuário já tem 3 reservas
         if len(GerenciadorReservas._reservas[id_usuario]) >= 3:
             print(f"Usuário {usuario.get_nome()} já atingiu o limite de 3 reservas.")
@@ -53,21 +49,22 @@ class GerenciadorReservas:
         print(f"Reserva do livro '{livro.get_titulo()}' feita com sucesso para {usuario.get_nome()} em {data_reserva}.")
         return True
 
-    @staticmethod
-    def remover_reserva(usuario, livro) -> bool:
-        """Remove a reserva de um usuário para um livro."""
-        id_usuario = usuario.get_id()
-        id_livro = livro.get_id()
 
+
+    @staticmethod
+    def remover_reserva(id_usuario, id_livro):
         if id_usuario in GerenciadorReservas._reservas:
-            for reserva in GerenciadorReservas._reservas[id_usuario]:
-                if reserva[0] == id_livro:
-                    GerenciadorReservas._reservas[id_usuario].remove(reserva)
-                    print(f"Reserva do livro '{livro.get_titulo()}' removida para {usuario.get_nome()}.")
-                    return True
-        
-        print(f"Nenhuma reserva encontrada para {usuario.get_nome()} no livro '{livro.get_titulo()}'.")
-        return False
+            reservas_usuario = GerenciadorReservas._reservas[id_usuario]
+            # Percorre as reservas do usuário e tenta encontrar a que corresponde ao id_livro
+            for reserva in reservas_usuario:
+                if reserva[0] == id_livro:  # Compara o id_livro
+                    reservas_usuario.remove(reserva)  # Remove a reserva
+                    print(f"Reserva do livro {id_livro} removida para o usuário {id_usuario}.")
+                    print(GerenciadorReservas._reservas[id_usuario])
+                    return True  # Sucesso na remoção
+        print(f"Reserva não encontrada para o usuário {id_usuario} e o livro {id_livro}.")
+        return False  # Caso não encontre a reserva
+
 
     @staticmethod
     def listar_reservas_usuario(usuario) -> list:

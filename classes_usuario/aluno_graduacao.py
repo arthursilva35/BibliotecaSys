@@ -42,6 +42,12 @@ class AlunoGraduacao(IUsuario):
 
         return None
     
+    def set_qtde_reservas(self, qtde):
+        self._qtde_reservas = qtde
+
+    def get_qtde_reservas(self):
+        return self._qtde_reservas
+    
     def ja_tem_livro(self, livro):
         return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._emprestimos_ativos])
     
