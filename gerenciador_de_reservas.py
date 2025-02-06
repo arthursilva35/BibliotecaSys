@@ -15,6 +15,11 @@ class GerenciadorReservas:
 
         usuario.adicionar_reserva(res)
 
+        qtd_exemp = livro.get_qtde_exemplares()
+
+        livro.set_qtde_exemplares(qtd_exemp -1)
+
+
         print(f"Reserva confirmada! Usuário {usuario.get_nome()} reservou o livro '{livro.get_titulo()}'.")
 
         return None
