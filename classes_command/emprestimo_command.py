@@ -25,7 +25,6 @@ class EmprestimoCommand(Command):
         if not usuario.pode_emprestar(livro):
             return None
         
-        print(GerenciadorReservas._reservas)
         if (usuario.get_tipo_usuario() == "Professor" and livro.get_qtde_exemplares() > 0) or livro.get_qtde_exemplares() - livro.get_qtde_reservas() > 0:
             # Coleta todas as reservas para o livro específico
             reservas = [
@@ -35,7 +34,6 @@ class EmprestimoCommand(Command):
                 if reserva[0] == livro.get_id()  # Verifica se o ID do livro corresponde
             ]
 
-            print(reservas)
 
             # Se houver reservas e não houver exemplares disponíveis
             if reservas and livro.get_qtde_exemplares() - livro.get_qtde_reservas() == 0:
