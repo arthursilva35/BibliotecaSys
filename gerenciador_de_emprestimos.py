@@ -33,7 +33,9 @@ class GerenciadorEmprestimos:
         GerenciadorEmprestimos.id_counter += 1
         cur_id = GerenciadorEmprestimos.id_counter
 
-        data_entrega = datetime.now() + timedelta(days=usuario.get_tempo_emprestimo()) 
+        data_entrega = datetime.now() + timedelta(days=usuario.get_tempo_emprestimo())
+
+        data_entrega = data_entrega.strftime("%d/%m/%Y")
         
         emp = Emprestimo(cur_id, usuario.get_id(), livro.get_id(), data_entrega)
         usuario.adicionar_emprestimo_ativo(emp)

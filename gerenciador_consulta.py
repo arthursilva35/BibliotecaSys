@@ -41,7 +41,7 @@ class GerenciadorConsulta():
 
             livro = sys.get_livro_por_id(cur_id)
 
-            print(f"emprestimo do livro {livro.get_titulo()} feita em {emp.get_data()}, status: {emp.get_status()}, entrega prevista: {emp.get_entrega_prevista()}")
+            print(f"emprestimo de {livro.get_titulo()} feito em {emp.get_data()}, status {emp.get_status()} com entrega prevista: {emp.get_entrega_prevista()}")
         
         return None
         

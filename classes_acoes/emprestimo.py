@@ -7,6 +7,7 @@ class Emprestimo(IAcaoLivro):
         self._id_usuario_responsavel = id_usuario_responsavel
         self._id_livro = id_livro
         self._data = datetime.datetime.now()
+        self._data = self._data.strftime("%d/%m/%Y")
         self._status = "ativo"
         self._entrega_prevista = entrega_prevista
 
