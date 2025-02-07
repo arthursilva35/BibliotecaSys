@@ -7,6 +7,7 @@ class IUsuario(ABC):
         self._nome = nome
         self._esta_devendo = False
         self._emprestimos_ativos = []
+        self._reservas_ativas = []
         self._emprestimos = []
         self._reservas = []
     
@@ -34,7 +35,10 @@ class IUsuario(ABC):
     def get_emprestimos(self):
         pass
 
-    
+    @abstractmethod
+    def get_reservas_ativas(self):
+        pass
+
     @abstractmethod
     def get_reservas(self):
         pass
@@ -45,9 +49,17 @@ class IUsuario(ABC):
         pass
         
     @abstractmethod
-    def adicionar_reserva(self):
+    def adicionar_reserva_ativa(self):
         pass
 
     @abstractmethod
     def adicionar_emprestimo_ativo(self):
+        pass
+
+    @abstractmethod
+    def remover_reserva_ativa(self):
+        pass
+
+    @abstractmethod    
+    def remover_emprestimo_ativo(self):
         pass
