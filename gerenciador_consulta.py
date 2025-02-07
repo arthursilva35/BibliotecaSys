@@ -6,6 +6,11 @@ class GerenciadorConsulta():
         sys = FabricaSistemaBiblioteca.get_sistema()
         
         reservas = usuario.get_reservas()
+
+
+        if len(reservas) == 0:
+            print(f"Não há reservas associadas a {usuario.get_nome()}")
+            return None
         
         print(f"Reservas encontradas associadas ao usuario {usuario.get_nome()}:")
         
@@ -23,6 +28,10 @@ class GerenciadorConsulta():
         sys = FabricaSistemaBiblioteca.get_sistema()
 
         historico_emprestimos = usuario.get_emprestimos()
+
+        if len(historico_emprestimos) == 0:
+            print(f"Não há empréstimos associados a {usuario.get_nome()}")
+            return None
         
         print(f"Emprestimos encontradas associadas ao usuario {usuario.get_nome()}:")
         
