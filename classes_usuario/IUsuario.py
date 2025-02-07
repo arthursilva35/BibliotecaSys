@@ -47,3 +47,7 @@ class IUsuario(ABC):
     @abstractmethod
     def adicionar_reserva(self):
         pass
+
+    @abstractmethod
+    def adicionar_emprestimo_ativo(self):
+        pass

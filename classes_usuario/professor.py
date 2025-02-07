@@ -36,9 +36,17 @@ class Professor(IUsuario):
         self._reservas.append(reserva)
         return None
     
+    def adicionar_emprestimo_ativo(self, emprestimo):
+        self._emprestimos_ativos.append(emprestimo)
+        self._emprestimos.append(emprestimo)
+        return None
+    
     def pode_emprestar(self):
         if (len(self._emprestimos_ativos)) >= self.LIMITE_EMPRESTIMOS: return False
         
         if self._esta_devendo : return False
 
         return True
+    
+    def get_tempo_emprestimo(self):
+        return self._TEMPO_EMPRESTIMO
