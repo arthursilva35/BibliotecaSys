@@ -1,9 +1,12 @@
 from .IUsuario import IUsuario
-from regra_emprestimo_folder.regra_pos_graduacao import RegraPosGraduacao
+from classes_usuario.IRegraEmprestimo import IRegraEmprestimo
 
 class AlunoPosGraduacao(IUsuario):
     def __init__(self, id, nome):
         super().__init__(id, nome)
+
+        self._LIMITE_EMPRESTIMOS = 3
+        self._TEMPO_EMPRESTIMO = 5
 
     def get_id(self):
         return self._id
@@ -15,50 +18,28 @@ class AlunoPosGraduacao(IUsuario):
         return self._esta_devendo
 
     def get_emprestimos(self):
+        return self._emprestimos
+    
+    def get_emprestimos_ativos(self):
         return self._emprestimos_ativos
 
     def get_reservas(self):
         return self._reservas
-
-    def get_tempo_emprestimo(self):
-        return RegraPosGraduacao.TEMPO_EMPRESTIMO
     
-    def get_limite_emprestimos(self):
-        return RegraPosGraduacao.LIMITE_EMPRESTIMOS
+    def get_tempo_emprestimo(self):
+        return self._TEMPO_EMPRESTIMO
     
     def mudar_situacao_devedor(self):
         self._esta_devendo = not self._esta_devendo
+        return None
 
     def adicionar_reserva(self, reserva):
         self._reservas.append(reserva)
-
         return None
     
-    def ja_tem_reserva(self, livro):
-        return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._reservas])
-    
-    def remover_reserva(self, id_livro):
-        self._reservas = [r for r in self._reservas if r.get_id() != id_livro]
+    def pode_emprestar(self):
+        if (len(self._emprestimos_ativos)) >= self._LIMITE_EMPRESTIMOS: return False
+        
+        if self._esta_devendo : return False
 
-        return None
-    
-    def ja_tem_livro(self, livro):
-        return any([int(e.get_id_livro()) == int(livro.get_id()) for e in self._emprestimos_ativos])
-    
-    def adicionar_emprestimo(self, emprestimo):
-        self._emprestimos_ativos.append(emprestimo)
-
-    def adicionar_emprestimo_historico(self, emprestimo):
-        self._historico_emprestimos.append(emprestimo)
-
-    def get_emprestimos_ativos(self):
-        return self._emprestimos_ativos
-
-    def get_historico_emprestimos(self):
-        return self._historico_emprestimos
-    
-    def pode_emprestar(self, livro):
-        return RegraPosGraduacao().pode_emprestar(self, livro)
-    
-    def get_tipo_usuario(self):
-        return "Aluno de Pós-Graduação"
+        return True

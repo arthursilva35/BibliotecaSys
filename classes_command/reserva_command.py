@@ -28,10 +28,6 @@ class ReservaCommand(Command):
             print(f"Usuário {usuario.get_nome()} já possui 3 reservas simultâneas. Reserva não permitida.")
             return None
         
-        if usuario.ja_tem_livro(livro):
-            print(f"Usuário {usuario.get_nome()} já tem o livro '{livro.get_titulo()}' emprestado.")
-            return None
-        
         if livro.get_qtde_exemplares() == 0:
             print(f"Não há mais exemplares disponíveis do livro '{livro.get_titulo()}'.")
             return None
