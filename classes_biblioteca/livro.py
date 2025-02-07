@@ -9,9 +9,7 @@ class Livro:
         self._edicao = edicao
         self._anoPublicacao = anoPublicacao
         self._qtdExemplares = qtdExemplares
-        self._qtdReservas = 0
         self._status = "d"
-        self._estaDisponivel = self.get_esta_disponivel()
 
     def get_id(self):
         return self._id
@@ -33,18 +31,9 @@ class Livro:
     
     def get_qtde_exemplares(self):
         return self._qtdExemplares
-    
-    def get_qtde_reservas(self):
-        return self._qtdReservas
-    
-    def set_qtde_reservas(self, qtd):
-        self._qtdReservas = qtd
-
-        return None
 
     def set_qtde_exemplares(self, qtd):
         self._qtdExemplares = qtd
-
         return None
 
     def get_status(self):
@@ -55,8 +44,4 @@ class Livro:
             self._status = "n"
         else:
             self._status = "d"
-
         return None
-    
-    def get_esta_disponivel(self):
-        return self._qtdExemplares > 0
