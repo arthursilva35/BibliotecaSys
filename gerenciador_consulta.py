@@ -21,10 +21,8 @@ class GerenciadorConsulta():
     
     def consulta_emprestimo(self, usuario):
         sys = FabricaSistemaBiblioteca.get_sistema()
-        
-        emprestimos_ativos = usuario.get_emprestimos_ativos()
 
-        historico_emprestimos = usuario.get_historico_emprestimos()
+        historico_emprestimos = usuario.get_emprestimos()
         
         print(f"Emprestimos encontradas associadas ao usuario {usuario.get_nome()}:")
         
@@ -34,7 +32,7 @@ class GerenciadorConsulta():
 
             livro = sys.get_livro_por_id(cur_id)
 
-            print(f"emprestimo do livro {livro.get_titulo()} feita em {emp.get_data()}, status: {emp.get_status()}")
+            print(f"emprestimo do livro {livro.get_titulo()} feita em {emp.get_data()}, status: {emp.get_status()}, entrega prevista: {emp.get_entrega_prevista()}")
         
         return None
         

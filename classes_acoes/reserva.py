@@ -7,7 +7,7 @@ class Reserva(IAcaoLivro):
         self._id_usuario_responsavel = id_usuario_responsavel
         self._id_livro = id_livro
         self._data = datetime.datetime.now()
-        self._status = "ativo"
+        self._status = "ativa"
     
     def get_id(self):
         return self._id

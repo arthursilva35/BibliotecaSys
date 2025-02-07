@@ -25,27 +25,5 @@ class GerenciadorReservas:
         return None
 
     @staticmethod
-    def remover_reserva(usuario, livro) -> bool:
-        """Remove a reserva de um usuário para um livro."""
-        id_usuario = usuario.get_id()
-        id_livro = livro.get_id()
-
-        if id_usuario in GerenciadorReservas._reservas:
-            for reserva in GerenciadorReservas._reservas[id_usuario]:
-                if reserva[0] == id_livro:
-                    GerenciadorReservas._reservas[id_usuario].remove(reserva)
-                    print(f"Reserva do livro '{livro.get_titulo()}' removida para {usuario.get_nome()}.")
-                    return True
-        
-        print(f"Nenhuma reserva encontrada para {usuario.get_nome()} no livro '{livro.get_titulo()}'.")
-        return False
-
-    @staticmethod
-    def listar_reservas(usuario) -> list:
-        """Lista todas as reservas de um usuário."""
-        return GerenciadorReservas._reservas.get((usuario.get_id()), [])
-
-    @staticmethod
-    def tem_reserva(usuario, livro) -> bool:
-        """Verifica se um usuário tem reserva para um livro."""
-        return any(reserva[0] == livro.get_id() for reserva in GerenciadorReservas._reservas.get(usuario.get_id(), []))
+    def remover_reserva(usuario, livro):
+        pass
