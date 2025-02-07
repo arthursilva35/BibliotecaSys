@@ -23,14 +23,6 @@ class ReservaCommand(Command):
         if livro is None:
             print(f"Não existe livro com o Id: {id_livro}.")
             return None
-
-        if len(usuario.get_reservas()) >= 3:
-            print(f"Usuário {usuario.get_nome()} já possui 3 reservas simultâneas. Reserva não permitida.")
-            return None
-        
-        if livro.get_qtde_exemplares() == 0:
-            print(f"Não há mais exemplares disponíveis do livro '{livro.get_titulo()}'.")
-            return None
         
         GerenciadorReservas.adicionar_reserva(usuario, livro)
         

@@ -35,7 +35,7 @@ class Professor(IUsuario):
         self._esta_devendo = not self._esta_devendo
         return None
 
-    def adicionar_reserva(self, reserva):
+    def adicionar_reserva_ativa(self, reserva):
         self._reservas.append(reserva)
         self._reservas_ativas.append(reserva)
         return None

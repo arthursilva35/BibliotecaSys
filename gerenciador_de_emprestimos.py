@@ -14,8 +14,9 @@ class GerenciadorEmprestimos:
         for reserva in reservas:
 
             if reserva.get_id_livro() == livro.get_id():
-                print(f"Reserva de {livro.get_titulo()} feita por {usuario.get_nome()} cancelada.")
                 reserva.mudar_status()
+                usuario.remover_reserva_ativa(reserva)
+                print(f"Reserva de {livro.get_titulo()} feita por {usuario.get_nome()} cancelada.")
                 tem_reserva = True
                 break
 
@@ -26,7 +27,7 @@ class GerenciadorEmprestimos:
             return None
         
         if livro.get_qtde_exemplares() == 0 and not tem_reserva:
-            print(f"{livro.get_titulo} não possui mais exemplares disponíveis e o usuário não havia reservado.")
+            print(f"{livro.get_titulo()} não possui mais exemplares disponíveis e o usuário não havia reservado.")
             return None
         
         GerenciadorEmprestimos.id_counter += 1
